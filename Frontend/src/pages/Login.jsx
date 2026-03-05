@@ -3,43 +3,33 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { API_URL } from "../api"
 
-function Login(){
+function Login() {
 
   const navigate = useNavigate()
 
-  const [username,setUsername] = useState("")
-  const [password,setPassword] = useState("")
-  const [error,setError] = useState("")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
 
-  useEffect(()=>{
+  useEffect(() => {
     const savedUser = localStorage.getItem("username")
-    if(savedUser){
+    if (savedUser) {
       setUsername(savedUser)
     }
-  },[])
+  }, [])
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault()
 
-    try{
-
-      const res = await axios.post(`${API_URL}/login`,{
-        username,
-        password
-      })
-
-      if(res.status === 200){
-        localStorage.setItem("username",username)
-        navigate("/welcome")
-      }
-
-    }catch(err){
+    if (username === "admin" && password === "admin") {
+      localStorage.setItem("username", username)
+      navigate("/welcome")
+    } else {
       setError("Invalid credentials")
     }
-
   }
 
-  return(
+  return (
 
     <div className="container">
 
@@ -51,14 +41,14 @@ function Login(){
           type="text"
           placeholder="Enter Username"
           value={username}
-          onChange={(e)=>setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
 
         <input
           type="password"
           placeholder="Enter Password"
           value={password}
-          onChange={(e)=>setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button type="submit">

@@ -16,7 +16,7 @@ function Welcome(){
 
       <h1>Welcome {username}!!</h1>
 
-      <p>You have successfully logged in.</p>
+      <p>You have successfully logged in</p>
 
       <button className="logout-btn" onClick={logout}>
         Logout
